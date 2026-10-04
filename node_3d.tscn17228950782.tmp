@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://d1c7wq4s0j0bj"]
+
+[ext_resource type="Script" uid="uid://e8w6g6l7kh7p" path="res://BallMover.gd" id="1_a202f"]
+[ext_resource type="Script" uid="uid://pmd6hcu3dy67" path="res://CameraManager.gd" id="1_r3fl7"]
+[ext_resource type="Script" uid="uid://ofrk5allm0al" path="res://LineRenderer.gd" id="2_a0tk4"]
+[ext_resource type="Script" uid="uid://5yd56rrlmfor" path="res://CheckGround.gd" id="2_noarx"]
+
+[sub_resource type="Curve3D" id="Curve3D_noarx"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 2, -0.5, 0, 0, 0, 0, 0, 0, -10, 2, -0.5),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r3fl7"]
+friction = 5.0
+rough = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3xd07"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3xd07"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jq8tk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_noarx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3xd07"]
+
+[node name="Node3D" type="Node3D" unique_id=1372180007]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=703793850]
+transform = Transform3D(1, 0, 0, 0, -0.3427951, 0.9394102, 0, -0.9394102, -0.3427951, 0, 3.2641826, -2.4732828)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1165991620]
+transform = Transform3D(1, 0, 0, 0, 0.9736858, 0.22789478, 0, -0.22789478, 0.9736858, 0, 4.8290114, 12.496826)
+script = ExtResource("1_r3fl7")
+
+[node name="BallPathRenderer" type="CSGPolygon3D" parent="." unique_id=1111552028]
+cast_shadow = 0
+polygon = PackedVector2Array(0, 0, 0, 0.1, 0.1, 0.1, 0.1, 0)
+mode = 2
+path_node = NodePath("../Path3D")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="Path3D" type="Path3D" parent="." unique_id=537128987]
+curve = SubResource("Curve3D_noarx")
+script = ExtResource("2_a0tk4")
+
+[node name="Ball" type="RigidBody3D" parent="." unique_id=48049696]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.507, 0)
+physics_material_override = SubResource("PhysicsMaterial_r3fl7")
+script = ExtResource("1_a202f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball" unique_id=376944890]
+shape = SubResource("SphereShape3D_3xd07")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball" unique_id=1402096130]
+mesh = SubResource("SphereMesh_3xd07")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Ball" unique_id=64090195]
+shape = SubResource("SphereShape3D_jq8tk")
+target_position = Vector3(0, 0, 0)
+script = ExtResource("2_noarx")
+
+[node name="Box1" type="StaticBody3D" parent="." unique_id=291038635]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box1" unique_id=1602020510]
+mesh = SubResource("BoxMesh_noarx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box1" unique_id=1061446449]
+shape = SubResource("BoxShape3D_3xd07")
+
+[node name="Box2" type="StaticBody3D" parent="." unique_id=271639173]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, -10, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box2" unique_id=1055330170]
+mesh = SubResource("BoxMesh_noarx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box2" unique_id=192143959]
+shape = SubResource("BoxShape3D_3xd07")

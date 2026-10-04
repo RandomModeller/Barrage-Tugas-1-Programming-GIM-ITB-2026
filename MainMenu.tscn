@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://c5nv4pcf6u0kn"]
+
+[ext_resource type="Script" uid="uid://bxicmwl6gfvpe" path="res://MouseUnlocker.gd" id="1_i26rj"]
+[ext_resource type="Script" uid="uid://g4p1g1cqcqo0" path="res://SceneManager.gd" id="2_eiy7p"]
+
+[node name="MainMenu" type="Node2D" unique_id=511810975]
+
+[node name="MouseSetter" type="Node2D" parent="." unique_id=203937143]
+script = ExtResource("1_i26rj")
+
+[node name="Button" type="Button" parent="." unique_id=452769071]
+offset_left = 290.0
+offset_top = 311.0
+offset_right = 891.0
+offset_bottom = 398.0
+theme_override_font_sizes/font_size = 58
+text = "Start"
+
+[node name="SceneChanger" type="Node2D" parent="." unique_id=289263909]
+script = ExtResource("2_eiy7p")
+
+[node name="Label" type="Label" parent="." unique_id=398720041]
+offset_left = 277.0
+offset_top = 11.0
+offset_right = 914.0
+offset_bottom = 239.0
+theme_override_font_sizes/font_size = 167
+text = "Barrage"
+
+[connection signal="pressed" from="Button" to="SceneChanger" method="_on_button_pressed"]
